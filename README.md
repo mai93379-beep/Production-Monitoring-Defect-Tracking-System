@@ -141,4 +141,4 @@ Through this project, I improved my understanding of:
 
 **Hoang Le Huy**
 
-- GitHub: [Building-Production-Monitoring-System](https://github.com/Peoz28/Building-Production-Monitoring-System)
+- GitHub: [Production-Monitoring-Defect-Tracking-System](https://github.com/mai93379-beep/Production-Monitoring-Defect-Tracking-System)
