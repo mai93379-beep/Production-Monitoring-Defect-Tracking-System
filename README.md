@@ -1,12 +1,12 @@
-# Production Monitoring & Defect Tracking System
+# Hệ Thống Giám Sát Sản Xuất & Theo Dõi Lỗi (Production Monitoring & Defect Tracking System)
 
-A manufacturing-oriented monitoring system developed for SMT production environment simulation.
+Hệ thống giám sát định hướng sản xuất được phát triển để mô phỏng môi trường sản xuất SMT.
 
-This project provides real-time production line monitoring, defect tracking, production logging, and role-based management functionalities inspired by MES (Manufacturing Execution System) workflows used in electronics factories.
+Dự án này cung cấp khả năng giám sát dây chuyền sản xuất theo thời gian thực, theo dõi lỗi, nhật ký sản xuất và các chức năng quản lý dựa trên vai trò được lấy cảm hứng từ quy trình MES (Hệ thống điều hành sản xuất) được sử dụng trong các nhà máy điện tử.
 
-The system was designed to simulate practical production monitoring processes including line status management, defect reporting, production statistics, and operational logging.
+Hệ thống được thiết kế để mô phỏng các quy trình giám sát sản xuất thực tế bao gồm quản lý trạng thái dây chuyền, báo cáo lỗi, thống kê sản xuất và ghi nhật ký vận hành.
 
-## System Architecture
+## Kiến Trúc Hệ Thống
 
 ```mermaid
 graph TD
@@ -14,130 +14,130 @@ graph TD
     B -->|SQL Queries| C[Database: MySQL/XAMPP]
 ```
 
-## Technology Stack
+## Công Nghệ Sử Dụng
 
 ### Backend
-- **Node.js**: Runtime environment
+- **Node.js**: Môi trường thực thi
 - **Express.js**: Web framework
-- **RESTful API**: Communication standard
-- **JWT**: Secure authentication
+- **RESTful API**: Tiêu chuẩn giao tiếp
+- **JWT**: Xác thực bảo mật
 
-### Database
-- **MySQL**: Relational database management
-- **phpMyAdmin**: Database administration tool
+### Cơ Sở Dữ Liệu
+- **MySQL**: Hệ quản trị cơ sở dữ liệu quan hệ
+- **phpMyAdmin**: Công cụ quản trị cơ sở dữ liệu
 
 ### Frontend
-- **HTML5**: Structure
-- **CSS3**: Styling (Glassmorphism & Light Theme)
-- **Bootstrap**: Responsive components
-- **JavaScript**: Frontend logic and API integration
+- **HTML5**: Cấu trúc
+- **CSS3**: Định dạng (Glassmorphism & Giao diện sáng)
+- **Bootstrap**: Các thành phần đáp ứng (Responsive)
+- **JavaScript**: Logic frontend và tích hợp API
 
-### Tools
-- **VS Code**: IDE
-- **GitHub**: Version control
-- **Postman**: API testing
-- **XAMPP**: Local server environment (Apache & MySQL)
+### Công Cụ
+- **VS Code**: Trình soạn thảo mã nguồn
+- **GitHub**: Quản lý phiên bản
+- **Postman**: Kiểm thử API
+- **XAMPP**: Môi trường máy chủ cục bộ (Apache & MySQL)
 
-## Main Features
+## Các Tính Năng Chính
 
-### Authentication & Authorization
-- **Secure Login**: User authentication system.
-- **RBAC**: Role-based access control (Admin, Engineer, Operator).
-- **Session Management**: JWT-based session handling.
+### Xác Thực & Phân Quyền
+- **Đăng Nhập Bảo Mật**: Hệ thống xác thực người dùng.
+- **RBAC**: Kiểm soát truy cập dựa trên vai trò (Admin, Engineer, Operator).
+- **Quản Lý Phiên**: Xử lý phiên dựa trên JWT.
 
-### Production Monitoring
-- **Real-time Status**: Live monitoring of SMT production lines.
-- **Output Tracking**: Daily production output visualization.
-- **Status Management**: Machine status tracking (Running, Stopped, Warning).
+### Giám Sát Sản Xuất
+- **Trạng Thái Thời Gian Thực**: Giám sát trực tiếp các dây chuyền sản xuất SMT.
+- **Theo Dõi Sản Lượng**: Trực quan hóa sản lượng sản xuất hàng ngày.
+- **Quản Lý Trạng Thái**: Theo dõi trạng thái máy (Đang chạy, Dừng, Cảnh báo).
 
-### Defect Tracking
-- **Quality Control**: Simulation of AOI/SPI defect detection.
-- **Defect Logging**: Detailed reporting of defect types and quantities.
-- **Statistics**: Dashboard visualization of quality metrics.
+### Theo Dõi Lỗi (Defect Tracking)
+- **Kiểm Soát Chất Lượng**: Mô phỏng việc phát hiện lỗi AOI/SPI.
+- **Ghi Nhật Ký Lỗi**: Báo cáo chi tiết các loại lỗi và số lượng.
+- **Thống Kê**: Trực quan hóa các chỉ số chất lượng trên bảng điều khiển.
 
-### Production Logs
-- **Activity History**: Detailed timeline of production events.
-- **Event Tracking**: Operational logging for transparency.
-- **Downtime Monitoring**: Tracking of line stops and maintenance.
+### Nhật Ký Sản Xuất
+- **Lịch Sử Hoạt Động**: Dòng thời gian chi tiết của các sự kiện sản xuất.
+- **Theo Dõi Sự Kiện**: Ghi nhật ký vận hành để đảm bảo tính minh bạch.
+- **Giám Sát Thời Gian Dừng**: Theo dõi các lần dừng dây chuyền và bảo trì.
 
-### Dashboard
-- **Consolidated Stats**: High-level production statistics.
-- **Quality Metrics**: Visualization of defect rates.
-- **Line Overview**: Comprehensive status grid of all lines.
+### Bảng Điều Khiển (Dashboard)
+- **Thống Kê Tổng Hợp**: Các số liệu sản xuất cấp cao.
+- **Chỉ Số Chất Lượng**: Trực quan hóa tỷ lệ lỗi.
+- **Tổng Quan Dây Chuyền**: Lưới trạng thái toàn diện của tất cả các dây chuyền.
 
-## Database Design
+## Thiết Kế Cơ Sở Dữ Liệu
 
-Main tables:
-- `users`: User profiles and roles.
-- `production_lines`: Line configuration and current status.
-- `defects`: Records of quality issues.
-- `production_logs`: Operational history.
+Các bảng chính:
+- `users`: Hồ sơ người dùng và vai trò.
+- `production_lines`: Cấu hình dây chuyền và trạng thái hiện tại.
+- `defects`: Bản ghi các vấn đề chất lượng.
+- `production_logs`: Lịch sử vận hành.
 
-The database was designed using relational modeling principles to support production workflow tracking and manufacturing data management.
+Cơ sở dữ liệu được thiết kế bằng các nguyên tắc mô hình hóa quan hệ để hỗ trợ theo dõi quy trình làm việc và quản lý dữ liệu sản xuất.
 
-## API Structure
+## Cấu Trúc API
 
-### Authentication
-- `POST /api/auth/login`: User login and token generation.
-- `GET /api/auth/me`: Retrieve current user profile.
+### Xác Thực
+- `POST /api/auth/login`: Đăng nhập người dùng và tạo token.
+- `GET /api/auth/me`: Lấy hồ sơ người dùng hiện tại.
 
-### Production Lines
-- `GET /api/lines`: List all production lines.
-- `GET /api/lines/:id`: Get detailed info for a specific line.
-- `PATCH /api/lines/:id/status`: Update line status.
+### Dây Chuyền Sản Xuất
+- `GET /api/lines`: Danh sách tất cả các dây chuyền sản xuất.
+- `GET /api/lines/:id`: Lấy thông tin chi tiết của một dây chuyền cụ thể.
+- `PATCH /api/lines/:id/status`: Cập nhật trạng thái dây chuyền.
 
-### Defects
-- `GET /api/defects`: Retrieve all defect logs.
-- `POST /api/defects`: Report a new defect.
-- `GET /api/defects/stats`: Get defect statistics for charts.
+### Lỗi (Defects)
+- `GET /api/defects`: Lấy tất cả nhật ký lỗi.
+- `POST /api/defects`: Báo cáo lỗi mới.
+- `GET /api/defects/stats`: Lấy thống kê lỗi cho biểu đồ.
 
-### Logs
-- `GET /api/logs`: Retrieve recent production logs.
-- `POST /api/logs`: Add a new manual log entry.
+### Nhật Ký (Logs)
+- `GET /api/logs`: Lấy các nhật ký sản xuất gần đây.
+- `POST /api/logs`: Thêm bản ghi nhật ký thủ công mới.
 
-## Installation Guide
-1. **Database**: Import `production_monitoring.sql` into your MySQL (XAMPP).
+## Hướng Dẫn Cài Đặt
+1. **Cơ sở dữ liệu**: Nhập file `production_monitoring.sql` vào MySQL của bạn (XAMPP).
 2. **Backend**:
    - `cd backend`
    - `npm install`
-   - Configure `.env` (DB_USER, DB_PASS, PORT=3000).
-   - Start server: `node app.js`
+   - Cấu hình file `.env` (DB_USER, DB_PASS, PORT=3000).
+   - Khởi động server: `node app.js`
 3. **Frontend**:
-   - Open `frontend/index.html` via XAMPP or direct file access.
+   - Mở `frontend/index.html` qua XAMPP hoặc truy cập file trực tiếp.
 
-## Default Credentials
+## Tài Khoản Mặc Định
 - **Admin**: `admin01` / `123456`
 - **Engineer**: `engineer01` / `123456`
 - **Operator**: `operator01` / `123456`
 
-## Screenshots
+## Ảnh Chụp Màn Hình
 
-### Dashboard
+### Bảng Điều Khiển (Dashboard)
 ![Dashboard](screenshots/dashboard.png)
 
-### Defect Management
+### Quản Lý Lỗi
 ![Defects](screenshots/defects.png)
 
-### Production Logs
+### Nhật Ký Sản Xuất
 ![Logs](screenshots/logs.png)
 
-## Future Improvements
-- **Docker**: Containerized deployment.
-- **WebSockets**: Real-time push notifications for line errors.
-- **Analytics**: Advanced data visualization using Chart.js.
-- **Tracking**: Barcode/QR integration for component tracking.
-- **Reporting**: Automated Excel/PDF report exports.
-- **OEE**: Detailed machine performance analysis (OEE).
+## Cải Tiến Trong Tương Lai
+- **Docker**: Triển khai dưới dạng container.
+- **WebSockets**: Thông báo đẩy thời gian thực cho các lỗi dây chuyền.
+- **Phân Tích**: Trực quan hóa dữ liệu nâng cao bằng Chart.js.
+- **Theo Dõi**: Tích hợp Barcode/QR để theo dõi linh kiện.
+- **Báo Cáo**: Tự động xuất báo cáo Excel/PDF.
+- **OEE**: Phân tích chi tiết hiệu suất thiết bị (OEE).
 
-## Learning Outcomes
-Through this project, I improved my understanding of:
-- Manufacturing workflow systems and MES concepts.
-- Backend RESTful API development with Node.js.
-- Relational database design and complex SQL queries.
-- Modern frontend UI/UX design (Glassmorphism & Light Theme).
-- Role-based security and authentication workflows.
+## Kết Quả Học Tập
+Thông qua dự án này, tôi đã cải thiện hiểu biết về:
+- Hệ thống quy trình sản xuất và khái niệm MES.
+- Phát triển Backend RESTful API với Node.js.
+- Thiết kế cơ sở dữ liệu quan hệ và các truy vấn SQL phức tạp.
+- Thiết kế UI/UX hiện đại (Glassmorphism & Light Theme).
+- Quy trình bảo mật dựa trên vai trò và xác thực.
 
-## Author
+## Tác Giả
 
 **Hoang Le Huy**
 
