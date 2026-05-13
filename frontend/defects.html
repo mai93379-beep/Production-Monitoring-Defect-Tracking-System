@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defects - Production Monitoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar glass">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-industry" style="color: white;"></i>
+                </div>
+                <h2 style="font-size: 1.25rem; font-weight: 700;">PRO-MON</h2>
+            </div>
+            
+            <nav>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="defects.html" class="nav-item active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Defects</span>
+                </a>
+                <a href="#" id="settingsBtn" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="#" id="logoutBtn" class="nav-item" style="margin-top: 2rem; color: var(--danger);">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1 style="font-size: 1.5rem; font-weight: 700;">Defect Logs</h1>
+                    <p style="color: var(--text-muted);">Track and manage production quality issues</p>
+                </div>
+                <button id="addDefectBtn" class="btn btn-primary" style="width: auto; padding: 0.75rem 1.5rem;">
+                    <i class="fas fa-plus"></i>
+                    <span>Report Defect</span>
+                </button>
+            </header>
+
+            <div class="glass" style="padding: 1.5rem;">
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Line</th>
+                                <th>Defect Type</th>
+                                <th>Quantity</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="defectsTableBody">
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Simple Modal for Reporting Defect -->
+    <div id="defectModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center;">
+        <div class="glass" style="width: 100%; max-width: 500px; padding: 2rem; margin: 1rem;">
+            <h2 style="margin-bottom: 1.5rem;">Report New Defect</h2>
+            <form id="defectForm">
+                <div class="form-group">
+                    <label>Production Line</label>
+                    <select id="lineSelect" class="form-input" style="background: var(--surface);" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Defect Type</label>
+                    <input type="text" id="defectType" class="form-input" placeholder="e.g. Lệch linh kiện" required>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="defectQuantity" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="defectDesc" class="form-input" rows="3"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" id="closeModal" class="btn" style="background: var(--glass);">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        const token = localStorage.getItem('token');
+
+        if (!token) window.location.href = 'login.html';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchDefects();
+            loadLines();
+
+            document.getElementById('addDefectBtn').onclick = () => document.getElementById('defectModal').style.display = 'flex';
+            document.getElementById('closeModal').onclick = () => document.getElementById('defectModal').style.display = 'none';
+            
+            // Logout logic
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            });
+
+            // Settings logic
+            document.getElementById('settingsBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Tính năng Cài đặt đang được phát triển!');
+            });
+
+            document.getElementById('defectForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const payload = {
+                    line_id: document.getElementById('lineSelect').value,
+                    defect_type: document.getElementById('defectType').value,
+                    quantity: document.getElementById('defectQuantity').value,
+                    description: document.getElementById('defectDesc').value
+                };
+
+                const res = await fetch(`${API_URL}/defects`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    document.getElementById('defectModal').style.display = 'none';
+                    fetchDefects();
+                    document.getElementById('defectForm').reset();
+                }
+            };
+        });
+
+        async function fetchDefects() {
+            const res = await fetch(`${API_URL}/defects`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const defects = await res.json();
+            
+            document.getElementById('defectsTableBody').innerHTML = defects.map(d => `
+                <tr>
+                    <td>${new Date(d.defect_time).toLocaleString()}</td>
+                    <td><span style="color: var(--primary); font-weight: 600;">${d.line_name}</span></td>
+                    <td>${d.defect_type}</td>
+                    <td style="color: var(--danger); font-weight: 700;">${d.quantity}</td>
+                    <td style="font-size: 0.875rem; color: var(--text-muted);">${d.description || '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadLines() {
+            const res = await fetch(`${API_URL}/lines`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const lines = await res.json();
+            document.getElementById('lineSelect').innerHTML = lines.map(l => `
+                <option value="${l.id}">${l.line_name}</option>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
